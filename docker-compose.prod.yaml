@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_date:/var/lib/postgresql
+
+  reids:
+    image: redis:8-alpine
+    env_file:
+      - .env
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+networks:
+  default:
+    name: sedthee_random_network
+
+volumes:
+  postgres_data:
+  redis_data:
